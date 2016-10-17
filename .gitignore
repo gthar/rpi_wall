@@ -1,4 +1,4 @@
-/target
+/target/
 /lib
 /classes
 /checkouts
@@ -10,3 +10,4 @@
 .lein*
 pom.xml*
 .env
+.nrepl-port
