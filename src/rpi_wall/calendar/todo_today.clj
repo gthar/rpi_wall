@@ -13,7 +13,6 @@
         end-time   (str day "T23:59:59" time-zone-offset ":00")]
     (my-list-events google-ctx start-time end-time)))
 
-
 (defn get-time
   [date-map shift]
   (when-let [date-time (get date-map "dateTime")]

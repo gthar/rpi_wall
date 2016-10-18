@@ -42,15 +42,47 @@
                 :margin "0"
                 :letter-spacing "10px"}]]
 
-       [:div.mpd {:background-color (rgba 50 50 50 0.5)}]
-
-       [:div.gmail {:background-color (rgba 50 50 50 0.5)}]
-
-       [:div.weather {:background-color (rgba 50 50 50 0.5)}]
+       [:div.mpd        {:background-color (rgba 50 50 50 0.5)}]
+       [:div.gmail      {:background-color (rgba 50 50 50 0.5)
+                         :padding-top "10px"}]
+       [:div.weather    {:background-color (rgba 50 50 50 0.5)}]
+       [:div.todo-today {:background-color (rgba 50 50 50 0.5)}]
+       [:div.todo       {:background-color (rgba 50 50 50 0.5)}]
 
        [:table {:border          "none"
                 :border-collapse "collapse"
                 :text-align      "center"}]
+
+
+
+       [:table#todo {:padding-top    "10px"
+                     :padding-bottom "10px"
+                     :padding-left   "10px"
+                     :padding-right  "10px"}
+         [:th {:border-bottom "1px solid rgb(150, 150, 150)"
+               :font-weight   "normal"
+               :font-family   "OpenSansLight"}]
+         [:td {:text-align "left"}]]
+
+       [:table#todo-today {:padding-top    "10px"
+                           :padding-bottom "10px"
+                           :padding-left   "10px"
+                           :padding-right  "10px"}
+
+        [:th {:border-bottom "1px solid rgb(150, 150, 150)"
+              :font-weight "normal"
+              :font-family "OpenSansLight"}]
+
+        [:td.time {:font-family   "OpenSansLight"
+                   :text-align    "right"
+                   :padding-right "10px"}]
+        [:td.event {:text-align   "left"
+                    :padding-left "10px"}]]
+
+       [:table#gmail {:padding-top    "10px"
+                      :padding-bottom "10px"
+                      :padding-left   "10px"
+                      :padding-right  "10px"}]
 
        [:table#mpd {:padding-top    "10px"
                     :padding-bottom "10px"
@@ -82,8 +114,9 @@
             [:&:first-child {:border-left "none"}]
             [:&:last-child  {:border-right "none"}]]]
 
-       [:table.row
-          [:td {:padding-left   "10px"
+       [:table.row {:width "1080px"}
+          [:td {:text-align     "center"
+                :padding-left   "10px"
                 :padding-right  "10px"}]]
 
        [:table.calendar

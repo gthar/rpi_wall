@@ -8,10 +8,13 @@
             [rpi-wall.calendar.client :refer [busy-days-state
                                               month0
                                               month1
-                                              month2]]
+                                              month2
+                                              todo-today-state
+                                              todo-today]]
             [rpi-wall.weather.client  :refer [weather-state weather]]
             [rpi-wall.mpd.client      :refer [mpd-state cover-art-state mpd]]
-            [rpi-wall.gmail.client    :refer [new-emails-state gmail]]))
+            [rpi-wall.gmail.client    :refer [new-emails-state gmail]]
+            [rpi-wall.todo.client     :refer [todo-state todo]]))
 
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
@@ -49,6 +52,11 @@
 (make-reciever :rpi-wall/mpd-cover-art cover-art-state)
 (make-reciever :rpi-wall/busy-days     busy-days-state)
 (make-reciever :rpi-wall/gmail         new-emails-state)
+(make-reciever :rpi-wall/todo          todo-state)
+
+(defmethod msg-data-handler :rpi-wall/todo-today
+  [[_ & [x]]]
+  (reset! todo-today-state x))
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
@@ -75,20 +83,27 @@
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
 (def app
-  (let [row10 [:tr [:td {:row-span 2} [clock]] [:td [mpd]]]
-        row12 [:tr [:td [gmail]]]
+  (let [row1  [:tr [:td [clock]] [:td [mpd]]]
+
         row2  [:tr [:td [month0]]
                    [:td [month1]]
                    [:td [month2]]]
-        row3  [:tr [:td [weather]]]
 
-        t1 [:div.first.row [:table.row          [:tbody row10 row12]]]
+        row3 [:tr [:td [todo]]
+                  [:td [todo-today]]
+                  [:td [gmail]]]
+
+        row4  [:tr [:td [weather]]]
+
+        t1 [:div.first-row [:table.row          [:tbody row1]]]
         t2 [:div.calendar  [:table.row.calendar [:tbody row2]]]
-        t3 [:div.last-row  [:table.row          [:tbody row3]]]]
+        t3 [:div.todo-row  [:table.row          [:tbody row3]]]
+        t4 [:div.last-row  [:table.row          [:tbody row4]]]]
 
     [:div [:table#app [:tbody [:tr [:td t1]]
                               [:tr [:td t2]]
-                              [:tr [:td t3]]]]]))
+                              [:tr [:td t3]]
+                              [:tr [:td t4]]]]]))
 
 (js/addEventListener "keypress"
                      #(->> %

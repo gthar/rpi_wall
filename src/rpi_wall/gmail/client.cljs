@@ -11,4 +11,4 @@
               (= x 0)  "No tens emails nous"
               (= x 1)  (str "Tens " x " email nou")
               :else    (str "Tens " x " emails nous"))]
-    [:div.gmail txt]))
+    [:div.gmail [:table#gmail [:tbody txt]]]))

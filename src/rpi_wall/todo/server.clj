@@ -1,13 +1,13 @@
 (ns rpi-wall.todo.server
-  (:require [rpi-wall.helpers :refer [config]]
-            [clojure.string   :refer [split]]))
+  (:require [rpi-wall.helpers         :refer [config]]
+            [clojure.string           :refer [split]]))
 
 (let [todo-config (:todo config)]
   (def file     (:file     todo-config))
   (def n-events (:n-events todo-config)))
 
-(defonce todo-state 
-  (atom (into [] (repeat n-events nil))))
+(defonce todo-state
+  (atom []))
 
 (defn expander
   "Set the length of a list to at least n"
@@ -36,6 +36,5 @@
   []
   (let [todo-info (->> file
                        read-lines
-                       (len-setter n-events)
                        (into []))]
     (reset! todo-state todo-info)))

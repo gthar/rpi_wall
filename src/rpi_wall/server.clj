@@ -16,8 +16,9 @@
 
     [rpi-wall.weather.server  :refer [set-weather! weather-state]]
     [rpi-wall.mpd.server      :refer [set-mpd!  mpd-state control-mpd! cover-state]]
-    [rpi-wall.calendar.server :refer [set-cal-info!  busy-days-state]]
-    [rpi-wall.gmail.server    :refer [set-new-emails!  new-emails-state]])
+    [rpi-wall.calendar.server :refer [set-cal-info! busy-days-state todo-today-state]]
+    [rpi-wall.gmail.server    :refer [set-new-emails! new-emails-state]]
+    [rpi-wall.todo.server     :refer [read-todo! todo-state]])
   (:gen-class))
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
@@ -62,28 +63,27 @@
 (defn make-broadcaster!
   [id reference]
   (add-watch reference id
-             (fn [_ _ _ x]
-               (broadcast id x))))
+             (fn [_ _ old x]
+               (when-not (= old x)
+                 (broadcast id x)))))
 
 (def id-var-pairs
   [[:rpi-wall/weather       weather-state]
    [:rpi-wall/mpd           mpd-state]
    [:rpi-wall/mpd-cover-art cover-state]
    [:rpi-wall/busy-days     busy-days-state]
-   [:rpi-wall/gmail         new-emails-state]])
+   [:rpi-wall/todo-today    todo-today-state]
+   [:rpi-wall/gmail         new-emails-state]
+   [:rpi-wall/todo          todo-state]])
 
 (doseq [[id atom-var] id-var-pairs]
   (make-broadcaster! id atom-var))
 
-(defn broadcast-all
-  []
-  (doseq [[id atom-var] id-var-pairs]
-    (broadcast id @atom-var)))
-
 (add-watch connected-uids
            :connected-clients
            (fn [_ _ _ _]
-             (broadcast-all)))
+             (doseq [[id atom-var] id-var-pairs]
+               (broadcast id @atom-var))))
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
@@ -154,6 +154,7 @@
   (set-interval set-weather!    1000)
   (set-interval set-mpd!        0.5)
   (set-interval set-cal-info!   1000)
+  (set-interval read-todo!      500)
   (set-interval set-new-emails! 60))
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
