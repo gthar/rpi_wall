@@ -139,11 +139,10 @@
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
-(def browser (:browser config))
-
 (defn start-browser!
   [uri]
-  (future (sh browser uri))
+  (println uri)
+  (spit (:url-file config) uri)
   (println "waiting for a client to connect")
   (while (empty? (:any @connected-uids))
     (Thread/sleep 1000))
@@ -162,9 +161,7 @@
 (defn -main
   []
   (start-router!)
-  (let [uri (start-web-server!)]
-    (println uri)
-    (start-browser! uri))
+  (start-browser! (start-web-server!))
   (start-broadcasting!))
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
