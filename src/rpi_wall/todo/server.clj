@@ -2,9 +2,7 @@
   (:require [rpi-wall.helpers         :refer [config]]
             [clojure.string           :refer [split]]))
 
-(let [todo-config (:todo config)]
-  (def file     (:file     todo-config))
-  (def n-events (:n-events todo-config)))
+(def file (:todo config))
 
 (defonce todo-state
   (atom []))
