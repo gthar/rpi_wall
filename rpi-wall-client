@@ -3,6 +3,7 @@
 url_file="$HOME/.config/rpi_wall/url"
 browser_cmd="firefox"
 
+echo "waiting for server"
 while [ ! -f $url_file ]
 do
     sleep 2
