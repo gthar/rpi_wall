@@ -42,6 +42,7 @@
   :hooks [leiningen.cljsbuild]
 
   :main rpi-wall.server
+  :aot [rpi-wall.server]
 
   :aliases {"start-repl" ["do" "clean," "cljsbuild" "once," "repl" ":headless"]
             "start"      ["do" "clean," "cljsbuild" "once," "run"] })
