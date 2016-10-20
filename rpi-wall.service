@@ -1,0 +1,10 @@
+[Unit]
+Description=Server side of RaspberryPi wall display
+After=network-online.target
+Requires=network-online.target
+
+[Service]
+ExecStart=/home/rilla/rpi_wall/rpi-wall
+
+[Install]
+WantedBy=default.target

@@ -6,7 +6,6 @@
     [hiccup.core              :refer [html]]
     [garden.core              :refer [css]]
     [org.httpkit.server       :refer [run-server]]
-    [clojure.java.shell       :refer [sh]]
 
     [taoensso.sente :refer [make-channel-socket-server!  start-server-chsk-router!]]
     [taoensso.sente.server-adapters.http-kit :refer [get-sch-adapter]]
@@ -82,6 +81,7 @@
 (add-watch connected-uids
            :connected-clients
            (fn [_ _ _ _]
+             (println "new client connected!")
              (doseq [[id atom-var] id-var-pairs]
                (broadcast id @atom-var))))
 
@@ -139,15 +139,6 @@
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
-(defn start-browser!
-  [uri]
-  (println uri)
-  (spit (:url-file config) uri)
-  (println "waiting for a client to connect")
-  (while (empty? (:any @connected-uids))
-    (Thread/sleep 1000))
-  (println "client connected!"))
-
 (defn start-broadcasting!
   []
   (set-interval set-weather!    1000)
@@ -161,7 +152,9 @@
 (defn -main
   []
   (start-router!)
-  (start-browser! (start-web-server!))
+  (let [uri (start-web-server!)]
+    (println uri)
+    (spit (:url-file config) uri))
   (start-broadcasting!))
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;

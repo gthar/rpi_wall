@@ -1,0 +1,8 @@
+#!/usr/bin/env sh
+
+url_file="$HOME/.config/rpi_wall/url"
+jar_file="$HOME/rpi_wall/rpi-wall.jar"
+
+rm -f $url_file
+
+/usr/bin/java -jar $jar_file
