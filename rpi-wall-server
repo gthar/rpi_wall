@@ -6,3 +6,5 @@ jar_file="$HOME/rpi_wall/rpi-wall.jar"
 rm -rf $url_file
 
 /usr/bin/java -jar $jar_file
+
+rm -rf $url_file
