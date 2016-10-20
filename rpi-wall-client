@@ -1,0 +1,12 @@
+#!/usr/bin/env sh
+
+url_file="$HOME/.config/rpi_wall/url"
+browser_cmd="firefox"
+
+while [ ! -f $url_file ]
+do
+    sleep 2
+done
+
+url=`cat $url_file`
+$browser_cmd $url
