@@ -14,8 +14,14 @@
     [rpi-wall.style   :refer [style]]
 
     [rpi-wall.weather.server  :refer [set-weather! weather-state]]
-    [rpi-wall.mpd.server      :refer [set-mpd!  mpd-state control-mpd! cover-state]]
-    [rpi-wall.calendar.server :refer [set-cal-info! busy-days-state todo-today-state]]
+    [rpi-wall.mpd.server      :refer [set-mpd!
+                                      set-mpd-connection!
+                                      mpd-state
+                                      control-mpd!
+                                      cover-state]]
+    [rpi-wall.calendar.server :refer [set-cal-info!
+                                      busy-days-state
+                                      todo-today-state]]
     [rpi-wall.gmail.server    :refer [set-new-emails! new-emails-state]]
     [rpi-wall.todo.server     :refer [read-todo! todo-state]])
   (:gen-class))
@@ -139,13 +145,14 @@
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
-(defn start-broadcasting!
+(defn start-bg-processes!
   []
-  (set-interval set-weather!    1000)
-  (set-interval set-mpd!        0.5)
-  (set-interval set-cal-info!   1000)
-  (set-interval read-todo!      500)
-  (set-interval set-new-emails! 60))
+  (set-interval set-weather!        1000)
+  (set-interval set-mpd!            0.5)
+  (set-interval set-cal-info!       1000)
+  (set-interval read-todo!          500)
+  (set-interval set-new-emails!     60)
+  (set-interval set-mpd-connection! 60))
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
@@ -155,6 +162,6 @@
   (let [uri (start-web-server!)]
     (println uri)
     (spit (:url-file config) uri))
-  (start-broadcasting!))
+  (start-bg-processes!))
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;

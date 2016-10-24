@@ -13,14 +13,12 @@
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
-(def api-key
-  (:lastfm-apikey config))
+(let [mpd-config (:mpd config)]
+  (def cover-dir (:album-covers  mpd-config))
+  (def api-key   (:lastfm-apikey mpd-config)))
 
 (def base-url
   "http://ws.audioscrobbler.com/2.0/")
-
-(def cover-dir
-  (str (System/getProperty "user.home") "/.config/rpi_wall/album_covers"))
 
 (def no-cover
   (str cover-dir "/no-cover.png"))

@@ -24,11 +24,12 @@
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
+(def config-file
+  (str (System/getProperty "user.home") "/rpi_wall/conf.edn"))
+
 (defn read-config
   []
-  (let [config-file (str (System/getProperty "user.home")
-                         "/.config/rpi_wall/conf.edn")]
-    (edn/read-string (slurp config-file))))
+  (edn/read-string (slurp config-file)))
 
 (def config (read-config))
 
