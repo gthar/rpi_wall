@@ -1,10 +1,11 @@
 (ns rpi-wall.mpd.controller
-  (:require [clj-mpd.core   :refer [with-mpd-connection]]
-            [clj-mpd.player :refer [get-state
-                                    pause!
-                                    play!
-                                    play-next!
-                                    play-prev!]]))
+  (:require [clj-mpd.core                :refer [connect! disconnect!]]
+            [clj-mpd.player              :refer [get-state
+                                                 pause!
+                                                 play!
+                                                 play-next!
+                                                 play-prev!]]
+            [rpi-wall.mpd.get-connection :refer [mpd-connection]]))
 
 (defn pauser!
   []
@@ -14,10 +15,12 @@
 
 (defn controller!
   [x]
-  (with-mpd-connection :default
+  (when-let [conn @mpd-connection]
+    (connect! conn)
     (case x
       " " (pauser!)
       "p" (pauser!)
       ">" (play-next!)
       "<" (play-prev!)
-      (println (str "no current binding for " x)))))
+      (println (str "no current binding for " x)))
+    (disconnect!)))

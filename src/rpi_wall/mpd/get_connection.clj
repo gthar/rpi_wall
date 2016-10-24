@@ -1,6 +1,6 @@
 (ns rpi-wall.mpd.get-connection
-  (:require [rpi-wall.helpers         :refer [config]]
-            [clj-mpd.core             :refer [mpd connect! disconnect!]]))
+  (:require [rpi-wall.helpers :refer [config]]
+            [clj-mpd.core     :refer [mpd connect! disconnect!]]))
 
 (def connections
   (get-in config [:mpd :connections]))
@@ -24,6 +24,9 @@
        (map check-connection)
        (remove nil?)
        first))
+
+(def mpd-connection
+  (atom nil))
 
 (defn set-connection!
   []
