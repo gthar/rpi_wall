@@ -1,6 +1,7 @@
 (ns rpi-wall.todo.server
-  (:require [rpi-wall.helpers         :refer [config]]
-            [clojure.string           :refer [split]]))
+  (:require [rpi-wall.helpers    :refer [config]]
+            [rpi-wall.todo.parse :refer [read-todo]]
+            [clojure.string      :refer [split-lines]]))
 
 (def file (:todo config))
 
@@ -23,16 +24,10 @@
        (take n)
        (expander n)))
 
-(defn read-lines
-  "Read the contents of a file and split by lines"
-  [file]
-  (-> file
-      slurp
-      (split #"\n")))
-
 (defn read-todo!
   []
   (let [todo-info (->> file
-                       read-lines
+                       read-todo
+                       (map :text)
                        (into []))]
     (reset! todo-state todo-info)))
