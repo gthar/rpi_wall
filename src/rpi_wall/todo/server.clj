@@ -26,8 +26,5 @@
 
 (defn read-todo!
   []
-  (let [todo-info (->> file
-                       read-todo
-                       (map :text)
-                       (into []))]
+  (let [todo-info (read-todo file)]
     (reset! todo-state todo-info)))

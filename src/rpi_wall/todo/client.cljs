@@ -10,5 +10,5 @@
     [:thead [:tr [:th "TODO"]]]
     (into [:tbody]
           (map (fn [x]
-                 [:tr [:td x]])
+                 [:tr [:td (:text x)]])
                @todo-state))]])
