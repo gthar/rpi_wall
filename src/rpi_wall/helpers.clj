@@ -1,6 +1,6 @@
 (ns rpi-wall.helpers
   (:require [rpi-wall.common-helpers]
-            [clojure.edn :as edn]
+            [clj-yaml.core :as yaml]
             [clojure.data.codec.base64 :refer [encode]]
             [clojure.string            :refer [split join]]
             [clojure.java.io           :refer [copy input-stream]]))
@@ -25,11 +25,11 @@
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
 (def config-file
-  (str (System/getProperty "user.home") "/rpi_wall/conf.edn"))
+  (str (System/getProperty "user.home") "/rpi_wall/conf.yaml"))
 
 (defn read-config
   []
-  (edn/read-string (slurp config-file)))
+  (yaml/parse-string (slurp config-file)))
 
 (def config (read-config))
 
