@@ -3,9 +3,7 @@
 
 (defn get-quote
   []
-  (let [x (:out (sh "fortune" "-s"))]
-    (println x)
-    x))
+  (:out (sh "fortune" "-s")))
 
 (defonce quote-state
   (atom []))
