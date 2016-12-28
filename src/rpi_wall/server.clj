@@ -10,8 +10,9 @@
     [taoensso.sente :refer [make-channel-socket-server!  start-server-chsk-router!]]
     [taoensso.sente.server-adapters.http-kit :refer [get-sch-adapter]]
 
-    [rpi-wall.helpers :refer [set-interval config]]
-    [rpi-wall.style   :refer [style]]
+    [rpi-wall.helpers     :refer [set-interval config]]
+    [rpi-wall.style       :refer [style]]
+    [rpi-wall.key-handler :refer [key-handler]]
 
     [rpi-wall.weather.server  :refer [set-weather! weather-state]]
 
@@ -96,6 +97,10 @@
 (defmethod event-msg-handler :default
   [{:keys [event]}]
   (msg-data-handler event))
+
+(defmethod msg-data-handler :rpi-wall/keys
+  [[_ &  [x]]]
+  (key-handler x))
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
