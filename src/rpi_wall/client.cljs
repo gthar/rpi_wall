@@ -2,9 +2,9 @@
   (:require [taoensso.sente :refer [make-channel-socket-client!
                                     start-client-chsk-router!]]
             [reagent.core   :refer [render]]
-
             [rpi-wall.clock :refer [clock]]
 
+            [rpi-wall.fortune.client  :refer [quote-state fortune]]
             [rpi-wall.calendar.client :refer [busy-days-state
                                               month0
                                               month1
@@ -46,10 +46,11 @@
     [[_ & [x]]]
     (reset! variable x)))
 
-(make-reciever :rpi-wall/weather       weather-state)
-(make-reciever :rpi-wall/busy-days     busy-days-state)
-(make-reciever :rpi-wall/gmail         new-emails-state)
-(make-reciever :rpi-wall/todo          todo-state)
+(make-reciever :rpi-wall/fortune   quote-state)
+(make-reciever :rpi-wall/weather   weather-state)
+(make-reciever :rpi-wall/busy-days busy-days-state)
+(make-reciever :rpi-wall/gmail     new-emails-state)
+(make-reciever :rpi-wall/todo      todo-state)
 
 (defmethod msg-data-handler :rpi-wall/todo-today
   [[_ & [x]]]
@@ -80,7 +81,8 @@
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
 (def app
-  (let [row1  [:tr [:td [clock]]]
+  (let [row1  [:tr [:td [clock]]
+                   [:td [fortune]]]
 
         row2  [:tr [:td [month0]]
                    [:td [month1]]

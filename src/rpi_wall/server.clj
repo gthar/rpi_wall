@@ -14,6 +14,7 @@
     [rpi-wall.style       :refer [style]]
     [rpi-wall.key-handler :refer [key-handler]]
 
+    [rpi-wall.fortune.server  :refer [set-quote! quote-state]]
     [rpi-wall.weather.server  :refer [set-weather! weather-state]]
 
     [rpi-wall.calendar.server :refer [set-cal-info!
@@ -70,11 +71,12 @@
                  (broadcast id x)))))
 
 (def id-var-pairs
-  [[:rpi-wall/weather       weather-state]
-   [:rpi-wall/busy-days     busy-days-state]
-   [:rpi-wall/todo-today    todo-today-state]
-   [:rpi-wall/gmail         new-emails-state]
-   [:rpi-wall/todo          todo-state]])
+  [[:rpi-wall/fortune    quote-state]
+   [:rpi-wall/weather    weather-state]
+   [:rpi-wall/busy-days  busy-days-state]
+   [:rpi-wall/todo-today todo-today-state]
+   [:rpi-wall/gmail      new-emails-state]
+   [:rpi-wall/todo       todo-state]])
 
 (doseq [[id atom-var] id-var-pairs]
   (make-broadcaster! id atom-var))
@@ -140,12 +142,17 @@
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
+(def proc-interval-pairs
+  [[set-quote!      1000]
+   [set-weather!    1000]
+   [set-cal-info!   1000]
+   [read-todo!      500]
+   [set-new-emails! 60]])
+
 (defn start-bg-processes!
   []
-  (set-interval set-weather!        1000)
-  (set-interval set-cal-info!       1000)
-  (set-interval read-todo!          500)
-  (set-interval set-new-emails!     60))
+  (doseq [[proc interval] proc-interval-pairs]
+    (set-interval proc interval)))
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 

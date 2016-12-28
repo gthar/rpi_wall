@@ -42,12 +42,13 @@
                 :margin "0"
                 :letter-spacing "10px"}]]
 
-       [:div.mpd        {:background-color (rgba 50 50 50 0.5)}]
        [:div.gmail      {:background-color (rgba 50 50 50 0.5)
                          :padding-top "10px"}]
        [:div.weather    {:background-color (rgba 50 50 50 0.5)}]
        [:div.todo-today {:background-color (rgba 50 50 50 0.5)}]
        [:div.todo       {:background-color (rgba 50 50 50 0.5)}]
+       [:div.fortune    {:background-color (rgba 50 50 50 0.5)
+                         :width "400px"}]
 
        [:table {:border          "none"
                 :border-collapse "collapse"
@@ -84,23 +85,6 @@
                       :padding-left   "10px"
                       :padding-right  "10px"}]
 
-       [:table#mpd {:padding-top    "10px"
-                    :padding-bottom "10px"
-                    :padding-left   "10px"
-                    :padding-right  "10px"}
-        [:td  {:border-left  "1px solid rgb(150, 150, 150)"
-               :border-right "1px solid rgb(150, 150, 150)"}
-          [:&:first-child {:border-left  "none"}]
-          [:&:last-child  {:border-right "none"}]] 
-
-        [:td.param {:font-family   "OpenSansLight"
-                    :text-align    "right"
-                    :padding-right "10px"}]
-        [:td.value {:text-align   "left"
-                    :padding-left "10px"}]
-        [:td.album-art
-         [:img {:height (str album-cover-size "px")}]]]
-
        [:table#weather {:table-layout "fixed"}
           [:i.wi {:color (rgb 220 220 220)
                   :font-size "300%"
@@ -110,7 +94,7 @@
                 :border-right "1px solid rgb(150, 150, 150)"
                 :padding-left  "10px"
                 :padding-right "10px"
-                :width "120px"}
+                :width "400px"}
             [:&:first-child {:border-left "none"}]
             [:&:last-child  {:border-right "none"}]]]
 
