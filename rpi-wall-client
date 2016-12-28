@@ -1,7 +1,13 @@
 #!/usr/bin/env sh
 
+browser="chromium-browser --kiosk"
+wm="matchbox-window-manager"
 url_file="$HOME/.config/rpi_wall/url"
-browser_cmd="firefox"
+
+$wm $
+xset s off
+xset -dpms
+xset s noblank
 
 echo "waiting for server"
 while [ ! -f $url_file ]
@@ -10,4 +16,4 @@ do
 done
 
 url=`cat $url_file`
-$browser_cmd $url
+$browser $url
