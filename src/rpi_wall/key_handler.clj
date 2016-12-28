@@ -1,6 +1,6 @@
 (ns rpi-wall.key-handler
   (:require [clojure.java.shell :refer [sh]]
-            [clojure.string :refer [split]]
+            [clojure.string     :refer [split]]
             [rpi-wall.helpers   :refer [config]]))
 
 (defn exec-str
