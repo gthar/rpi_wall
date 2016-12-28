@@ -12,7 +12,6 @@
                                               todo-today-state
                                               todo-today]]
             [rpi-wall.weather.client  :refer [weather-state weather]]
-            [rpi-wall.mpd.client      :refer [mpd-state cover-art-state mpd]]
             [rpi-wall.gmail.client    :refer [new-emails-state gmail]]
             [rpi-wall.todo.client     :refer [todo-state todo]]))
 
@@ -48,8 +47,6 @@
     (reset! variable x)))
 
 (make-reciever :rpi-wall/weather       weather-state)
-(make-reciever :rpi-wall/mpd           mpd-state)
-(make-reciever :rpi-wall/mpd-cover-art cover-art-state)
 (make-reciever :rpi-wall/busy-days     busy-days-state)
 (make-reciever :rpi-wall/gmail         new-emails-state)
 (make-reciever :rpi-wall/todo          todo-state)
@@ -83,7 +80,7 @@
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
 (def app
-  (let [row1  [:tr [:td [clock]] [:td [mpd]]]
+  (let [row1  [:tr [:td [clock]]]
 
         row2  [:tr [:td [month0]]
                    [:td [month1]]
@@ -105,11 +102,11 @@
                               [:tr [:td t3]]
                               [:tr [:td t4]]]]]))
 
-(js/addEventListener "keypress"
-                     #(->> %
-                           .-key
-                           (conj [:rpi-wall/mpd])
-                           chsk-send!))
+;(js/addEventListener "keypress"
+                     ;#(->> %
+                           ;.-key
+                           ;(conj [:rpi-wall/mpd])
+                           ;chsk-send!))
 
 (render app (.getElementById js/document "app"))
 

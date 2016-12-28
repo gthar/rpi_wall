@@ -14,11 +14,7 @@
     [rpi-wall.style   :refer [style]]
 
     [rpi-wall.weather.server  :refer [set-weather! weather-state]]
-    [rpi-wall.mpd.server      :refer [set-mpd!
-                                      set-mpd-connection!
-                                      mpd-state
-                                      control-mpd!
-                                      cover-state]]
+
     [rpi-wall.calendar.server :refer [set-cal-info!
                                       busy-days-state
                                       todo-today-state]]
@@ -74,8 +70,6 @@
 
 (def id-var-pairs
   [[:rpi-wall/weather       weather-state]
-   [:rpi-wall/mpd           mpd-state]
-   [:rpi-wall/mpd-cover-art cover-state]
    [:rpi-wall/busy-days     busy-days-state]
    [:rpi-wall/todo-today    todo-today-state]
    [:rpi-wall/gmail         new-emails-state]
@@ -102,10 +96,6 @@
 (defmethod event-msg-handler :default
   [{:keys [event]}]
   (msg-data-handler event))
-
-(defmethod msg-data-handler :rpi-wall/mpd
-  [[_ & [x]]]
-  (control-mpd! x))
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
@@ -148,11 +138,9 @@
 (defn start-bg-processes!
   []
   (set-interval set-weather!        1000)
-  (set-interval set-mpd!            0.5)
   (set-interval set-cal-info!       1000)
   (set-interval read-todo!          500)
-  (set-interval set-new-emails!     60)
-  (set-interval set-mpd-connection! 60))
+  (set-interval set-new-emails!     60))
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
