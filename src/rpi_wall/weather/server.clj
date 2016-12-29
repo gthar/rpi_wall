@@ -43,6 +43,7 @@
        slurp
        read-str
        (#(get % "list"))
+       (take (:cnt weather-conf))
        (map format-weather)))
 
 (defn set-weather!
