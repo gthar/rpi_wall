@@ -48,7 +48,7 @@
        [:div.todo-today {:background-color (rgba 50 50 50 0.5)}]
        [:div.todo       {:background-color (rgba 50 50 50 0.5)}]
        [:div.fortune    {:background-color (rgba 50 50 50 0.5)
-                         :width "400px"}]
+                         :text-align "left"}]
 
        [:table {:border          "none"
                 :border-collapse "collapse"
