@@ -8,7 +8,7 @@
 
 (defn exec-str
   [x]
-  (apply sh (split x #"\s+")))
+  (future (apply sh (split x #"\s+"))))
 
 (defn key-handler
   [x]
