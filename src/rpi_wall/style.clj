@@ -54,8 +54,6 @@
                 :border-collapse "collapse"
                 :text-align      "center"}]
 
-
-
        [:table#todo {:padding-top    "10px"
                      :padding-bottom "10px"
                      :padding-left   "10px"

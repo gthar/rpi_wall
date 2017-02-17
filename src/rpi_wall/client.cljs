@@ -13,7 +13,7 @@
                                               todo-today]]
             [rpi-wall.weather.client  :refer [weather-state weather]]
             [rpi-wall.gmail.client    :refer [new-emails-state gmail]]
-            [rpi-wall.todo.client     :refer [todo-state todo]]))
+            [rpi-wall.todo.client     :refer [todo-state todo-home todo-work]]))
 
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
@@ -88,7 +88,8 @@
                    [:td [month1]]
                    [:td [month2]]]
 
-        row3 [:tr [:td [todo]]
+        row3 [:tr [:td [todo-home]]
+                  [:td [todo-work]]
                   [:td [todo-today]]
                   [:td [gmail]]]
 

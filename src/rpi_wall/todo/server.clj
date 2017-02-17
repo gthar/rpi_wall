@@ -1,7 +1,6 @@
 (ns rpi-wall.todo.server
   (:require [rpi-wall.helpers    :refer [config]]
-            [rpi-wall.todo.parse :refer [read-todo]]
-            [clojure.string      :refer [split-lines]]))
+            [rpi-wall.todo.parse :refer [read-todo]]))
 
 (def file (:todo config))
 
@@ -26,5 +25,5 @@
 
 (defn read-todo!
   []
-  (let [todo-info (read-todo file)]
+  (let [todo-info (remove :finished (read-todo file))]
     (reset! todo-state todo-info)))

@@ -27,10 +27,8 @@
                  [google-apps-clj             "0.5.2"]
                  [io.forward/clojure-mail     "1.0.5"]
                  [clj-time                    "0.12.0"]
-                 [clj-mpd  "0.0.1-SNAPSHOT"]
 
  								 [clj-http "2.3.0"]
-
                  [org.clojure/tools.logging "0.3.1"]]
 
   :plugins [[lein-cljsbuild      "1.1.3"]]
@@ -45,5 +43,7 @@
   :main rpi-wall.server
   :aot [rpi-wall.server]
 
+  :repl-options {:timeout 1200000}
+
   :aliases {"start-repl" ["do" "clean," "cljsbuild" "once," "repl" ":headless"]
-            "start"      ["do" "clean," "cljsbuild" "once," "run"] })
+            "start"      ["do" "clean," "cljsbuild" "once," "run"]})
