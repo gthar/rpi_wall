@@ -57,7 +57,8 @@
        [:table#todo {:padding-top    "10px"
                      :padding-bottom "10px"
                      :padding-left   "10px"
-                     :padding-right  "10px"}
+                     :padding-right  "10px"
+                     :font-size      "95%"}
          [:th {:border-bottom "1px solid rgb(150, 150, 150)"
                :font-weight   "normal"
                :font-family   "OpenSansLight"}]
@@ -66,7 +67,8 @@
        [:table#todo-today {:padding-top    "10px"
                            :padding-bottom "10px"
                            :padding-left   "10px"
-                           :padding-right  "10px"}
+                           :padding-right  "10px"
+                           :font-size      "95%"}
 
         [:th {:border-bottom "1px solid rgb(150, 150, 150)"
               :font-weight "normal"
@@ -81,7 +83,8 @@
        [:table#gmail {:padding-top    "10px"
                       :padding-bottom "10px"
                       :padding-left   "10px"
-                      :padding-right  "10px"}]
+                      :padding-right  "10px"
+                      :font-size      "95%"}]
 
        [:table#weather {:table-layout "fixed"}
           [:i.wi {:color (rgb 220 220 220)

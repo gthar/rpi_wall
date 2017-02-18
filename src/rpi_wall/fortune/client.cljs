@@ -17,7 +17,4 @@
 
 (defn fortune
   []
-  (let [x (format-quote @quote-state)]
-    (enable-console-print!)
-    (println x)
-    [:div.fortune (format-quote @quote-state)]))
+   [:div.fortune (format-quote @quote-state)])

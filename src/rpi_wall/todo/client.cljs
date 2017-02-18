@@ -6,7 +6,7 @@
 
 (defn format-row
   [x]
-  [:tr [:td (:text x)]])
+  [:tr [:td x]])
 
 (defn into-table
   [label todo]
@@ -17,10 +17,8 @@
 
 (defn todo-home
   []
-  (->> @todo-home-state
-       (into-table "todo home")))
+  (into-table "todo home" @todo-home-state))
 
 (defn todo-work
   []
-  (->> @todo-work-state
-       (into-table "todo work")))
+  (into-table "todo work" @todo-work-state))
