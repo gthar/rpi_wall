@@ -23,7 +23,8 @@
     [rpi-wall.gmail.server    :refer [set-new-emails! new-emails-state]]
     [rpi-wall.todo.server     :refer [read-todo!
                                       todo-home-state
-                                      todo-work-state]])
+                                      todo-work-state]]
+    [rpi-wall.temp.server :refer [temp-state read-temp!]])
   (:gen-class))
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
@@ -79,7 +80,8 @@
    [:rpi-wall/todo-today todo-today-state]
    [:rpi-wall/gmail      new-emails-state]
    [:rpi-wall/todo-work  todo-work-state]  
-   [:rpi-wall/todo-home  todo-home-state]])
+   [:rpi-wall/todo-home  todo-home-state]
+   [:rpi-wall/temp       temp-state]])
 
 (doseq [[id atom-var] id-var-pairs]
   (make-broadcaster! id atom-var))
@@ -150,7 +152,8 @@
    [set-weather!    1000]
    [set-cal-info!   1000]
    [read-todo!      500]
-   [set-new-emails! 60]])
+   [set-new-emails! 60]
+   [read-temp!      60]])
 
 (defn start-bg-processes!
   []

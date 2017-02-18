@@ -16,7 +16,8 @@
             [rpi-wall.todo.client     :refer [todo-home-state
                                               todo-work-state
                                               todo-home
-                                              todo-work]]))
+                                              todo-work]]
+            [rpi-wall.temp.client     :refer [temp-state temp]]))
 
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
@@ -55,6 +56,7 @@
 (make-reciever :rpi-wall/gmail     new-emails-state)
 (make-reciever :rpi-wall/todo-home todo-home-state)
 (make-reciever :rpi-wall/todo-work todo-work-state)
+(make-reciever :rpi-wall/temp      temp-state)
 
 (defmethod msg-data-handler :rpi-wall/todo-today
   [[_ & [x]]]
@@ -86,6 +88,7 @@
 
 (def app
   (let [row1  [:tr [:td [clock]]
+                   [:td [temp]]
                    [:td [fortune]]]
 
         row2  [:tr [:td [month0]]
