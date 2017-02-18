@@ -1,11 +1,8 @@
 (ns rpi-wall.todo.client
   (:require [reagent.core :refer [render atom]]))
 
-(defonce todo-state (atom []))
-
-(defn subset-by
-  [field value todo]
-  (filter #(->> % field (some #{value})) todo))
+(defonce todo-work-state (atom []))
+(defonce todo-home-state (atom []))
 
 (defn format-row
   [x]
@@ -20,12 +17,10 @@
 
 (defn todo-home
   []
-  (->> @todo-state
-       (subset-by :contexts "home")
+  (->> @todo-home-state
        (into-table "todo home")))
 
 (defn todo-work
   []
-  (->> @todo-state
-       (subset-by :contexts "work")
+  (->> @todo-work-state
        (into-table "todo work")))

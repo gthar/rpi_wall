@@ -13,7 +13,10 @@
                                               todo-today]]
             [rpi-wall.weather.client  :refer [weather-state weather]]
             [rpi-wall.gmail.client    :refer [new-emails-state gmail]]
-            [rpi-wall.todo.client     :refer [todo-state todo-home todo-work]]))
+            [rpi-wall.todo.client     :refer [todo-home-state
+                                              todo-work-state
+                                              todo-home
+                                              todo-work]]))
 
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
@@ -50,7 +53,8 @@
 (make-reciever :rpi-wall/weather   weather-state)
 (make-reciever :rpi-wall/busy-days busy-days-state)
 (make-reciever :rpi-wall/gmail     new-emails-state)
-(make-reciever :rpi-wall/todo      todo-state)
+(make-reciever :rpi-wall/todo-home todo-home-state)
+(make-reciever :rpi-wall/todo-work todo-work-state)
 
 (defmethod msg-data-handler :rpi-wall/todo-today
   [[_ & [x]]]

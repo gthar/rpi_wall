@@ -4,26 +4,22 @@
 
 (def file (:todo config))
 
-(defonce todo-state
-  (atom []))
+(defonce todo-work-state (atom []))
+(defonce todo-home-state (atom []))
 
-(defn expander
-  "Set the length of a list to at least n"
-  [n xs]
-  (let [tail (-> xs
-                 count
-                 (->> (- n))
-                 (repeat nil))]
-    (concat xs tail)))
+(defn subset-by
+  [field value todo]
+  (filter #(->> % field (some #{value})) todo))
 
-(defn len-setter
-  "Set the lenght of a list to a given number"
-  [n xs]
-  (->> xs
-       (take n)
-       (expander n)))
+(defn proc-todo
+  [todo-info context]
+  (->> (subset-by :contexts)
+       (map :text)))
 
 (defn read-todo!
   []
-  (let [todo-info (remove :finished (read-todo file))]
-    (reset! todo-state todo-info)))
+  (let [todo-info (remove :finished (read-todo file))
+        home-todo (proc-todo todo-info "home")
+        work-todo (proc-todo todo-info "work")]
+    (reset! todo-work-state work-todo)
+    (reset! todo-home-state home-todo)))

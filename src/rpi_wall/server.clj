@@ -21,7 +21,9 @@
                                       busy-days-state
                                       todo-today-state]]
     [rpi-wall.gmail.server    :refer [set-new-emails! new-emails-state]]
-    [rpi-wall.todo.server     :refer [read-todo! todo-state]])
+    [rpi-wall.todo.server     :refer [read-todo!
+                                      todo-home-state
+                                      todo-work-state]])
   (:gen-class))
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
@@ -76,7 +78,8 @@
    [:rpi-wall/busy-days  busy-days-state]
    [:rpi-wall/todo-today todo-today-state]
    [:rpi-wall/gmail      new-emails-state]
-   [:rpi-wall/todo       todo-state]])
+   [:rpi-wall/todo-work  todo-work-state]  
+   [:rpi-wall/todo-home  todo-home-state]])
 
 (doseq [[id atom-var] id-var-pairs]
   (make-broadcaster! id atom-var))
