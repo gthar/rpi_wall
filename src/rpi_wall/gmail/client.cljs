@@ -3,12 +3,24 @@
 
 (def new-emails-state (atom nil))
 
+(defn handle-nil
+  [x]
+  (if x x ""))
+
+(defn format-email
+  [[from subject]]
+  [:tr [:td.from    (handle-nil from)]
+       [:td.subject (handle-nil subject)]])
+
+(defn format-email-ls
+  [x]
+  (cond
+    (nil? x)          "No s'ha pogut connectar amb gmail"
+    (zero? (count x)) "No tens emails nous"
+    :else             (into [:tbody] (map format-email x))))
+
 (defn gmail
   []
-  (let [x @new-emails-state
-        txt (cond
-              (nil? x) "No s'ha pogut connectar amb gmail"
-              (= x 0)  "No tens emails nous"
-              (= x 1)  (str "Tens " x " email nou")
-              :else    (str "Tens " x " emails nous"))]
-    [:div.gmail [:table#gmail [:tbody txt]]]))
+  [:div.gmail
+     [:table#gmail [:thead [:tr [:th {:col-span 2} "gmail"]]]
+                   (format-email-ls @new-emails-state)]])

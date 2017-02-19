@@ -55,6 +55,12 @@
       (split #"\.")
       first))
 
+(defn limit-chars
+  [n x]
+  (if (> (count x) n)
+    (str (subs x 0 (- n 3)) "...")
+    x))
+
 (defn slurp-bytes
   [x]
   (with-open [out (java.io.ByteArrayOutputStream.)]

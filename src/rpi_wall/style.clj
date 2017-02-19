@@ -35,12 +35,12 @@
           [:h1 {:color (rgb 240 240 240)
                 :font-size "600%"
                 :margin "0"
-                :letter-spacing "20px"
+                :letter-spacing "15px"
                 :font-family "OpenSansLight"}]
           [:h2 {:color (rgb 190 190 190)
                 :font-size "300%"
                 :margin "0"
-                :letter-spacing "10px"}]]
+                :letter-spacing "5px"}]]
 
        [:div.gmail      {:background-color (rgba 50 50 50 0.5)
                          :padding-top "10px"}]
@@ -85,7 +85,17 @@
                       :padding-bottom "10px"
                       :padding-left   "10px"
                       :padding-right  "10px"
-                      :font-size      "95%"}]
+                      :font-size      "95%"}
+
+        [:th {:border-bottom "1px solid rgb(150, 150, 150)"
+              :font-weight "normal"
+              :font-family "OpenSansLight"}]
+
+        [:td.from {:font-family   "OpenSansLight"
+                   :text-align    "right"
+                   :padding-right "10px"}]
+        [:td.subject {:text-align   "left"
+                      :padding-left "10px"}]]
 
        [:table#weather {:table-layout "fixed"}
           [:i.wi {:color (rgb 220 220 220)
