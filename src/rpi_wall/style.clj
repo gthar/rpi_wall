@@ -106,7 +106,8 @@
                 :border-right "1px solid rgb(150, 150, 150)"
                 :padding-left  "10px"
                 :padding-right "10px"
-                :width "400px"}
+                :width "400px"
+                :font-size     "96%"}
             [:&:first-child {:border-left "none"}]
             [:&:last-child  {:border-right "none"}]]]
 

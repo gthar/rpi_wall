@@ -9,8 +9,7 @@
 
 (defn format-email
   [[from subject]]
-  [:tr [:td.from    (handle-nil from)]
-       [:td.subject (handle-nil subject)]])
+  [:tr [:td.subject (handle-nil from)]])
 
 (defn format-email-ls
   [x]
@@ -19,8 +18,14 @@
     (zero? (count x)) "No tens emails nous"
     :else             (into [:tbody] (map format-email x))))
 
+;(defn gmail
+  ;[]
+  ;[:div.gmail
+     ;[:table#gmail [:thead [:tr [:th {:col-span 2} "gmail"]]]
+                   ;(format-email-ls @new-emails-state)]])
+
 (defn gmail
   []
   [:div.gmail
-     [:table#gmail [:thead [:tr [:th {:col-span 2} "gmail"]]]
+     [:table#gmail [:thead [:tr [:th "gmail"]]]
                    (format-email-ls @new-emails-state)]])

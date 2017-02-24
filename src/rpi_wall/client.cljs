@@ -15,8 +15,10 @@
             [rpi-wall.gmail.client    :refer [new-emails-state gmail]]
             [rpi-wall.todo.client     :refer [todo-home-state
                                               todo-work-state
-                                              todo-home
-                                              todo-work]]
+                                              todo
+                                              ;todo-home
+                                              ;todo-work
+                                              ]]
             [rpi-wall.temp.client     :refer [temp-state temp]]))
 
 
@@ -95,8 +97,7 @@
                    [:td [month1]]
                    [:td [month2]]]
 
-        row3 [:tr [:td [todo-home]]
-                  [:td [todo-work]]
+        row3 [:tr [:td [todo]]
                   [:td [todo-today]]
                   [:td [gmail]]]
 

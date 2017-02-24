@@ -10,15 +10,14 @@
 
 (defn into-table
   [label todo]
+  [:table#todo
+    [:thead [:tr [:th label]]]
+    (into [:tbody] (map format-row todo))])
+
+(defn todo
+  []
   [:div.todo
-    [:table#todo
-     [:thead [:tr [:th label]]]
-     (into [:tbody] (map format-row todo))]])
-
-(defn todo-home
-  []
-  (into-table "todo home" @todo-home-state))
-
-(defn todo-work
-  []
-  (into-table "todo work" @todo-work-state))
+    [:table
+     [:tbody
+       [:tr [:td (into-table "todo home" @todo-home-state)]
+            [:td (into-table "todo work" @todo-work-state)]]]]])
