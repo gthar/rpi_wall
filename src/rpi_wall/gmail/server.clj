@@ -32,12 +32,6 @@
           :subject
           (limit-chars n)) ]))
 
-(defn limit
-  [x n]
-  (if (> (count x) n)
-    (concat (take (dec n) x) [[nil] ["..."]])
-    x))
-
 (defn get-mails
   [creds n m]
   (->> (unread-messages (store (:email creds)
@@ -45,7 +39,7 @@
                         folder-name)
        (map (partial read-email m))
        counter
-       (limiter limit n)))
+       (limiter [[nil] ["..."]] n)))
 
 (defn set-new-emails!
   []

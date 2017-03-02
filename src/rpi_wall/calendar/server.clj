@@ -24,18 +24,13 @@
         callback #(f calendar-creds shift)]
     (fetch-insist callback ms)))
 
-(defn limit
-  [x n]
-  (if (> (count x) n)
-    (concat (take (dec n) x) [{:start nil :end nil :name "..."}])
-    x))
-
 (defn set-cal-info!
   []
   (reset! busy-days-state  (fetcher get-busy-days))
   (reset! todo-today-state (->> get-day-events
                                 fetcher
                                 counter
-                                (limiter limit max-lines))))
-
-(set-cal-info!)
+                                (limiter {:start nil
+                                          :end   nil
+                                          :name  "..."}
+                                         max-lines))))

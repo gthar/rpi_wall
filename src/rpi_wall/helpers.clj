@@ -81,9 +81,15 @@
   (let [{n :n x :x} a]
     {:n n :x (apply f x args)}))
 
+(defn limit
+  [x a n]
+  (if (> (count x) n)
+    (concat (take (dec n) x) [a])
+    x))
+
 (defn limiter
-  [f n x]
-  (apply-at-counted f x n))
+  [a n x]
+  (apply-at-counted limit x a n))
 
 (def base64->img rpi-wall.common-helpers/base64->img)
 

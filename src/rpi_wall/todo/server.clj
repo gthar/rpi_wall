@@ -13,12 +13,6 @@
   [field value todo]
   (filter #(->> % field (some #{value})) todo))
 
-(defn limit
-  [xs n]
-  (if (> (count xs) n)
-    (concat (take (dec n) xs) ["..."])
-    xs))
-
 (defn proc-todo
   [todo-info context n m]
   (->> todo-info
@@ -26,7 +20,7 @@
        (map :text)
        (map (partial limit-chars m))
        counter
-       (limiter limit n)))
+       (limiter "..." n)))
 
 (defn read-todo!
   []
