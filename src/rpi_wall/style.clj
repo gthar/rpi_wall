@@ -47,7 +47,10 @@
        [:div.weather    {:background-color (rgba 50 50 50 0.5)}]
        [:div.todo-today {:background-color (rgba 50 50 50 0.5)}]
        [:div.todo       {:background-color (rgba 50 50 50 0.5)}]
-       [:div.temp       {:background-color (rgba 50 50 50 0.5)}]
+       [:div.temp       {:background-color (rgba 50 50 50 0.5)
+                         :font-size        "150%"
+                         :color            (rgb 210 210 210)
+                         :font-family      "OpenSansLight"}]
        [:div.fortune    {:background-color (rgba 50 50 50 0.5)
                          :text-align "left"}]
 
