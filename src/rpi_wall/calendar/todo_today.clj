@@ -2,7 +2,8 @@
   (:require [clj-time.core             :refer [now minute hour]]
             [clj-time.format           :refer [unparse formatter]]
             [rpi-wall.calendar.helpers :refer [google-time->clj-time
-                                               my-list-events]]))
+                                               my-list-events]]
+            [rpi-wall.helpers          :refer [counter limiter limit-chars]]))
 
 (defn my-list-day-events
   "Given a google-ctx configuration map, a day in the form(YYYY-MM-DD),
@@ -43,8 +44,14 @@
   (map #(info-from-event % shift) events))
 
 (defn get-day-events
-  [creds shift]
+  [creds shift max-lines max-chars]
   (-> creds
       (fetch-today-events shift)
       (parse-events shift)
-      event-sorter))
+      event-sorter
+      (->> (map (partial limit-chars max-chars)))
+      counter
+      (->> (limiter {:start nil
+                     :end nil
+                     :name  "..."}
+                    max-lines))))
