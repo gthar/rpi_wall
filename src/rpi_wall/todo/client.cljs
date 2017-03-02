@@ -10,9 +10,10 @@
 
 (defn into-table
   [label todo]
-  [:table#todo
-    [:thead [:tr [:th label]]]
-    (into [:tbody] (map format-row todo))])
+  (let [{n :n x :x} todo]
+    [:table#todo
+      [:thead [:tr [:th (str label " (" n ")")]]]
+      (into [:tbody] (map format-row x))]))
 
 (defn todo
   []

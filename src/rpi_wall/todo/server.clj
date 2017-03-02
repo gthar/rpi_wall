@@ -1,25 +1,20 @@
 (ns rpi-wall.todo.server
-  (:require [rpi-wall.helpers    :refer [config limit-chars]]
+  (:require [rpi-wall.helpers    :refer [config limit-chars counter limiter]]
             [rpi-wall.todo.parse :refer [read-todo]]))
 
 (def file (:todo config))
 (def max-lines (:max-lines config))
 (def max-chars (:max-chars config))
 
-(defonce todo-work-state (atom []))
-(defonce todo-home-state (atom []))
+(defonce todo-work-state (atom {:n 0 :x []}))
+(defonce todo-home-state (atom {:n 0 :x []}))
 
 (defn subset-by
   [field value todo]
   (filter #(->> % field (some #{value})) todo))
 
-(defn reporter
-  [x]
-  (println x)
-  x)
-
-(defn limiter
-  [n xs]
+(defn limit
+  [xs n]
   (if (> (count xs) n)
     (concat (take (dec n) xs) ["..."])
     xs))
@@ -30,7 +25,8 @@
        (subset-by :contexts context)
        (map :text)
        (map (partial limit-chars m))
-       (limiter n)))
+       counter
+       (limiter limit n)))
 
 (defn read-todo!
   []

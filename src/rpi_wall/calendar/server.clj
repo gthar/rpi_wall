@@ -1,7 +1,7 @@
 (ns rpi-wall.calendar.server
   (:require [rpi-wall.calendar.busy-days  :refer [get-busy-days]]
             [rpi-wall.calendar.todo-today :refer [get-day-events]]
-            [rpi-wall.helpers             :refer [fetch-insist config]]))
+            [rpi-wall.helpers             :refer [fetch-insist config counter]]))
 
 ;(google-apps-clj.credentials/get-auth-map creds ["https://www.googleapis.com/auth/calendar"])
 
@@ -14,7 +14,7 @@
   (atom []))
 
 (defonce todo-today-state
-  (atom []))
+  (atom {:n 0 :x []}))
 
 (defn fetcher
   [f]
@@ -25,6 +25,6 @@
 (defn set-cal-info!
   []
   (reset! busy-days-state  (fetcher get-busy-days))
-  (reset! todo-today-state (fetcher get-day-events)))
+  (reset! todo-today-state (counter (fetcher get-day-events))))
 
 (set-cal-info!)

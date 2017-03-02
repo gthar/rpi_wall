@@ -2,7 +2,7 @@
   (:require [clojure-mail.core    :refer [unread-messages]]
             [clojure-mail.gmail   :refer [store]]
             [clojure-mail.message :refer [read-message]]
-            [rpi-wall.helpers     :refer [config limit-chars]]))
+            [rpi-wall.helpers     :refer [config limit-chars counter limiter]]))
 
 (def creds     (:gmail     config))
 (def max-lines (:max-lines config))
@@ -10,7 +10,7 @@
 (def folder-name "inbox")
 
 (def new-emails-state
-  (atom nil))
+  (atom {:n "-" :x nil}))
 
 (defn count-new-messages
   [creds]
@@ -32,8 +32,8 @@
           :subject
           (limit-chars n)) ]))
 
-(defn limiter
-  [n x]
+(defn limit
+  [x n]
   (if (> (count x) n)
     (concat (take (dec n) x) [[nil] ["..."]])
     x))
@@ -44,14 +44,8 @@
                                (:passwd creds))
                         folder-name)
        (map (partial read-email m))
-       (limiter n)
-       (into [])))
-
-
-;(defn set-new-emails!
-  ;[]
-  ;(reset! new-emails-state
-          ;(count-new-messages creds)))
+       counter
+       (limiter limit n)))
 
 (defn set-new-emails!
   []

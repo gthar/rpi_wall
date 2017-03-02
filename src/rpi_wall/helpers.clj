@@ -72,6 +72,19 @@
   {:base64-src (slurp-bytes x)
    :img-format (get-extension x)})
 
+(defn counter
+  [xs]
+  {:n (count xs) :x xs})
+
+(defn apply-at-counted
+  [f a & args]
+  (let [{n :n x :x} a]
+    {:n n :x (apply f x args)}))
+
+(defn limiter
+  [f n x]
+  (apply-at-counted f x n))
+
 (def base64->img rpi-wall.common-helpers/base64->img)
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;

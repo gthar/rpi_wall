@@ -13,10 +13,9 @@
 
 (defn format-email-ls
   [x]
-  (cond
-    (nil? x)          "No s'ha pogut connectar amb gmail"
-    (zero? (count x)) "No tens emails nous"
-    :else             (into [:tbody] (map format-email x))))
+  (if (nil? x)
+    "No s'ha pogut connectar amb gmail"
+    (into [:tbody] (map format-email x))))
 
 ;(defn gmail
   ;[]
@@ -26,6 +25,8 @@
 
 (defn gmail
   []
-  [:div.gmail
-     [:table#gmail [:thead [:tr [:th "gmail"]]]
-                   (format-email-ls @new-emails-state)]])
+  (let [{n :n x :x} @new-emails-state]
+    [:div.gmail
+       [:table#gmail
+         [:thead [:tr [:th (str "gmail (" n ")")]]]
+         (format-email-ls x)]]))
