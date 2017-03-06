@@ -14,14 +14,8 @@
 (defn format-email-ls
   [x]
   (if (nil? x)
-    "No s'ha pogut connectar amb gmail"
+    [:tbody [:tr [:td "No s'ha pogut connectar amb gmail"]]]
     (into [:tbody] (map format-email x))))
-
-;(defn gmail
-  ;[]
-  ;[:div.gmail
-     ;[:table#gmail [:thead [:tr [:th {:col-span 2} "gmail"]]]
-                   ;(format-email-ls @new-emails-state)]])
 
 (defn gmail
   []
