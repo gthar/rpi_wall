@@ -59,9 +59,10 @@
 (defn todo-today
   []
   (let [{n :n x :x} @todo-today-state]
-    [:div.todo-today
-      [:table#todo-today
-        [:thead [:tr [:th {:col-span 2} (str "Events today (" n ")")]]]
-        (format-todo x)]]))
+    (when-not (zero? n)
+      [:div.todo-today
+        [:table#todo-today
+          [:thead [:tr [:th {:col-span 2} (str "Events today (" n ")")]]]
+          (format-todo x)]])))
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;

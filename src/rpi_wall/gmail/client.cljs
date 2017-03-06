@@ -20,7 +20,8 @@
 (defn gmail
   []
   (let [{n :n x :x} @new-emails-state]
-    [:div.gmail
-       [:table#gmail
-         [:thead [:tr [:th (str "gmail (" n ")")]]]
-         (format-email-ls x)]]))
+    (when-not (zero? n)
+      [:div.gmail
+         [:table#gmail
+           [:thead [:tr [:th (str "gmail (" n ")")]]]
+           (format-email-ls x)]])))
