@@ -113,12 +113,6 @@
                               [:tr [:td t3]]
                               [:tr [:td t4]]]]]))
 
-(js/addEventListener "keypress"
-                     #(->> %
-                           .-key
-                           (conj [:rpi-wall/keys])
-                           chsk-send!))
-
 (render app (.getElementById js/document "app"))
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;

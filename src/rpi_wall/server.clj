@@ -12,7 +12,6 @@
 
     [rpi-wall.helpers     :refer [set-interval config]]
     [rpi-wall.style       :refer [style]]
-    [rpi-wall.key-handler :refer [key-handler]]
 
     [rpi-wall.fortune.server  :refer [set-quote! quote-state]]
     [rpi-wall.weather.server  :refer [set-weather! weather-state]]
@@ -104,10 +103,6 @@
 (defmethod event-msg-handler :default
   [{:keys [event]}]
   (msg-data-handler event))
-
-(defmethod msg-data-handler :rpi-wall/keys
-  [[_ &  [x]]]
-  (key-handler x))
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
